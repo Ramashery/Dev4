@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Romaha Dev Agency — Web Development, Design &amp; SEO in Tbilisi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&amp;display=swap" rel="stylesheet">
+
+<style>
+  @font-face{
+    font-family: 'PP Neue Montreal';
+    src: url("https://cdn.prod.website-files.com/67bf03d2b36fb96de63bc268/67c04195117a3ced2a1ca448_PPNeueMontreal-Book.woff2") format("woff2");
+    font-weight: 300; font-style: normal; font-display: swap;
+  }
+  @font-face{
+    font-family: 'PP Neue Montreal';
+    src: url("https://cdn.prod.website-files.com/67bf03d2b36fb96de63bc268/67c04195ce53fc56229ed8e6_PPNeueMontreal-Regular.woff2") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face{
+    font-family: 'PP Neue Montreal';
+    src: url("https://cdn.prod.website-files.com/67bf03d2b36fb96de63bc268/67c04195765ce10bca858f5a_PPNeueMontreal-Medium.woff2") format("woff2");
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face{
+    font-family: 'PP Neue Montreal';
+    src: url("https://cdn.prod.website-files.com/67bf03d2b36fb96de63bc268/67c0419573159999f5ca1de9_PPNeueMontreal-Italic.woff2") format("woff2");
+    font-weight: 400; font-style: italic; font-display: swap;
+  }
+
+  :root{
+    --bg-deep: #101112;
+    --bg-panel: #0b0c0d;
+    --ink: #f3f1ec;
+    --ink-dim: rgba(243,241,236,0.62);
+    --ink-faint: rgba(243,241,236,0.36);
+    --accent: #7fa6c2;
+    --line: rgba(243,241,236,0.14);
+    --type: 'Special Elite', 'Courier New', Courier, monospace;
+
+    /* Reference's own light palette — used for the work/slideshow section */
+    --work-bg: #f8f8f8;
+    --work-ink: #0d1b1e;
+    --work-secondary: #4d4d4d;
+    --work-alt: #999;
+
+    /* Type scale, borrowed proportions/tracking from the reference (clamped for responsiveness) */
+    --fs-xxl: clamp(40px, 8.6vw, 120px);
+    --fs-xl:  clamp(34px, 7vw, 100px);
+    --fs-lg:  clamp(30px, 5.6vw, 80px);
+    --fs-md:  clamp(24px, 3.4vw, 48px);
+    --fs-sm:  clamp(19px, 2.2vw, 32px);
+    --fs-xs:  15px;
+    --fs-xxs: 12px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  html, body{ height:100%; }
+
+  body{
+    background: var(--bg-deep);
+    color: var(--ink);
+    font-family: var(--type);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  img, video{ display:block; max-width:100%; }
+
+  :focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .wrap{
+    max-width: 1360px;
+    margin: 0 auto;
+    padding-left: clamp(20px, 5vw, 64px);
+    padding-right: clamp(20px, 5vw, 64px);
+  }
+
+  .eyebrow{
+    font-size: var(--fs-xxs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* ============================================================
+     NAV — Circular Agency menu system, repositioned top-right,
+     submenus opening DOWNWARD. Mechanics/styling kept from source:
+     black/white sliding swap on hover+click, marquee ribbon,
+     full-bar-width submenu panels.
+     ============================================================ */
+  #mainMenu{
+    position: fixed;
+    top: clamp(16px, 3vw, 26px);
+    right: clamp(20px, 5vw, 64px);
+    width: 247px;
+    height: 60px;
+    z-index: 700;
+    font-family: var(--type);
+  }
+
+  /* Marquee */
+  .marquee-outer{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 247px;
+  }
+  .marquee-wrap{
+    height: 26px;
+    display: flex;
+    align-items: center;
+    background: rgba(0,0,0,0.2);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    white-space: nowrap;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 3px;
+  }
+  .marquee{
+    display: flex;
+    width: max-content;
+    animation: marquee 18s linear infinite;
+  }
+  .marquee_text{
+    display: inline-block;
+    text-transform: uppercase;
+    color: #fff;
+    padding-right: 2rem;
+    font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+    font-size: 10px;
+    line-height: 1;
+  }
+  @keyframes marquee{
+    0%{ transform: translateX(0); }
+    100%{ transform: translateX(-50%); }
+  }
+
+  /* Nav bar */
+  .nav-outer{
+    position: absolute;
+    right: 0;
+    top: 30px;
+    width: 247px;
+  }
+  #mainMenu nav{
+    display: flex;
+    justify-content: flex-end;
+    border: 2px solid #000;
+    border-radius: 3px;
+    overflow: visible;
+    background: transparent;
+    position: relative;
+  }
+
+  .menu_item{ position: relative; flex-shrink: 0; }
+  .item-inner{ position: relative; overflow: hidden; }
+  #menuwork .item-inner{ border-radius: 1px 0 0 1px; }
+  #menucontact .item-inner{ border-radius: 0 1px 1px 0; }
+
+  .bg_first, .bg_last{
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .bg_first{ background: #000; transform: translateY(0); }
+  .bg_last{ background: #fff; transform: translateY(100%); }
+
+  .menu_item_link{ display:block; position:relative; overflow:hidden; z-index:2; }
+  .menu_item_link span{
+    display:block;
+    padding: 8px 10px;
+    text-transform: uppercase;
+    font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+    font-size: 10px;
+    line-height: 1;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .menu_item_link span:first-child{ color:#fff; transform: translateY(0); }
+  .menu_item_link span:last-child{
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    color:#000; transform: translateY(-100%);
+    display:flex; align-items:center; padding: 8px 10px;
+  }
+
+  .js-menuitem-toggle{ position:absolute; inset:0; z-index:5; cursor:pointer; }
+  @media (min-width: 1024px){ .js-menuitem-toggle{ display:none; } }
+
+  /* Buffer zone flipped to sit ABOVE the item (submenu is now below) */
+  .fix_space{
+    height: 32px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 100%;
+    margin-top: -4px;
+    pointer-events: none;
+  }
+
+  /* Hover (desktop) */
+  .menu_item:not(.clicked):hover .fix_space{ pointer-events:auto; }
+  .menu_item:not(.clicked):hover .submenu{ height: 460px; pointer-events:auto; }
+  .menu_item:not(.clicked):hover .submenu_inner{ transform: translateY(0); }
+  .menu_item:not(.clicked):hover .bg_first{ transform: translateY(-100%); }
+  .menu_item:not(.clicked):hover .bg_last{ transform: translateY(0); }
+  .menu_item:not(.clicked):hover .menu_item_link span:first-child{ transform: translateY(100%); }
+  .menu_item:not(.clicked):hover .menu_item_link span:last-child{ transform: translateY(0); }
+
+  /* Open (mobile / click) */
+  .menu_item.menu--open .submenu{ height:460px; pointer-events:auto; }
+  .menu_item.menu--open .submenu_inner{ transform: translateY(0); }
+  .menu_item.menu--open .bg_first{ transform: translateY(-100%); }
+  .menu_item.menu--open .bg_last{ transform: translateY(0); }
+  .menu_item.menu--open .menu_item_link span:first-child{ transform: translateY(100%); }
+  .menu_item.menu--open .menu_item_link span:last-child{ transform: translateY(0); }
+
+  /* Submenu — full nav width, opens DOWNWARD, right-aligned to the bar */
+  .submenu{
+    position:absolute;
+    top: 100%;
+    width: 247px;
+    margin-top: 3px;
+    background:#000;
+    overflow:hidden;
+    height:0;
+    pointer-events:none;
+    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius:3px;
+    z-index:10;
+  }
+  /* Align each submenu to the right edge of the nav (offsets = widths of items after this one) */
+  #menucontact .submenu{ right: 0; }
+  #menuabout .submenu{ right: -71px; }
+  #menuservices .submenu{ right: -123px; }
+  #menuwork .submenu{ right: -191px; }
+
+  .submenu_inner{
+    position:absolute;
+    top:0; left:0;
+    width:100%;
+    height:460px;
+    display:flex;
+    flex-direction:column;
+    transform: translateY(-2.5rem);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    color:#fff;
+    background:#000;
+  }
+
+  .works-thumbs{ flex:1; display:flex; flex-direction:column; width:100%; }
+  .works-thumbs a{ position:relative; flex:1; overflow:hidden; }
+  .works-thumbs a img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .works-footer{ display:flex; align-items:center; justify-content:center; padding:16px 2px; }
+  @media (min-width:1024px){ .works-footer{ display:none; } }
+  .works-footer a{ display:flex; align-items:center; gap:4px; font-size:15px; }
+
+  .submenu-panel .submenu_inner{ padding:10px; border-radius:3px; }
+  .desc{ height:auto; min-height:120px; font-size:15px; line-height:1.3; letter-spacing:-0.02em; }
+  .space-y-6 > * + *{ margin-top:24px; }
+  .grid-3{ display:grid; grid-template-columns: 1fr 2fr; }
+  .label{ color: rgba(255,255,255,0.7); font-family: Georgia, serif; font-size:15px; }
+  .list p{ font-size:15px; line-height:1.35; letter-spacing:-0.02em; }
+  .mt-auto{ margin-top:auto; }
+  .coords{ display:none; align-items:center; justify-content:space-between; color:#5c5c5c; font-family: ui-monospace, monospace; font-size:10px; }
+  @media (min-width:1024px){ .coords{ display:flex; } }
+  .mobile-link{ display:flex; align-items:center; justify-content:center; padding:16px 0; }
+  @media (min-width:1024px){ .mobile-link{ display:none; } }
+  .mobile-link a{ display:flex; align-items:center; gap:4px; font-size:15px; }
+
+  .contact-img{ height:192px; margin-bottom:28px; overflow:hidden; border-radius:2px; }
+  .contact-img img{ width:100%; height:100%; object-fit:cover; }
+  .emails p{ margin-bottom:12px; font-size:15px; line-height:1.35; }
+  .emails a{ color: rgba(255,255,255,0.7); transition: color 0.3s; }
+  .emails a:hover{ color:#fff; }
+
+  .arrow-icon{ width:10px; height:10px; fill:currentColor; }
+
+  @media (max-width: 480px){
+    #mainMenu{ right: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero__content, .work-item{ transition:none; }
+  }
+
+  /* ============================================================
+     HERO — single background video
+     ============================================================ */
+  .hero{
+    position: relative;
+    height: 100svh;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .hero__video{
+    position:absolute;
+    top:50%; left:50%;
+    min-width:100%;
+    min-height:100%;
+    width:auto; height:auto;
+    transform: translate(-50%,-50%) scale(var(--hero-scale, 1));
+    object-fit:cover;
+    will-change: transform;
+  }
+
+  .hero__scrim{
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(10,10,11,0.22) 0%, rgba(10,10,11,0.1) 40%, rgba(10,10,11,0.7) 100%);
+    pointer-events: none;
+  }
+
+  .hero__content{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    width:100%;
+    padding-bottom: clamp(48px, 7vw, 88px);
+    padding-top: 170px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .hero__content.is-visible{ opacity: var(--hero-fade, 1); transform: translateY(0); }
+
+  .hero__title{
+    font-weight: 500;
+    font-size: var(--fs-lg);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    max-width: 100%;
+  }
+
+  .hero__divider{
+    margin-top: clamp(28px, 5vw, 44px);
+    margin-bottom: clamp(24px, 4vw, 36px);
+    border-top: 1px solid var(--line);
+    width: 100%;
+  }
+
+  .hero__footer-row{
+    display:flex;
+    justify-content:flex-end;
+    align-items:flex-end;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .hero__footer-col--right{ max-width: 32ch; }
+
+  .hero__footer-label{
+    font-size: var(--fs-xxs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+
+  .hero__footer-text{
+    font-size: var(--fs-xs);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ============================================================
+     WORK — horizontal slideshow, rebuilt from the reference's own
+     compiled CSS (.selected-container / .selected-content / etc.)
+     ============================================================ */
+  .work{
+    position: relative;
+    background: var(--work-bg);
+  }
+
+  .work__pin{
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .work__progress{
+    position:absolute;
+    left: clamp(20px, 5vw, 64px);
+    right: clamp(20px, 5vw, 64px);
+    bottom: clamp(20px, 3vw, 32px);
+    height: 1px;
+    background: rgba(13,27,30,0.14);
+    z-index: 2;
+  }
+  .work__progress-bar{
+    height: 100%;
+    width: 0%;
+    background: var(--work-ink);
+    transition: width .05s linear;
+  }
+
+  /* .selected-content: flex row, no gap, centered at rest, height = viewport */
+  .work__track{
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content:center;
+    align-items:flex-end;
+    height:100%;
+    width: max-content;
+    gap: 0;
+    will-change: transform;
+  }
+
+  /* .selected-item-outer + .selected-item-inner merged: bottom-aligned column, no side padding (--pad:0) */
+  .work-item{
+    position: relative;
+    height: 100%;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 24px; /* 1.5rem */
+  }
+
+  /* .selected-item-header: fixed-width text column, gap 1rem */
+  .work-item__header{
+    display:flex;
+    flex-direction: column;
+    gap: 16px; /* 1rem */
+    min-width: 24vw;
+    max-width: 24vw;
+  }
+
+  /* .headline-md.selected-title */
+  .work-item__title{
+    font-family: var(--type);
+    color: var(--work-ink);
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 400;
+    white-space: pre-wrap;
+  }
+  @media (min-width: 1600px){
+    .work-item__title{ font-size: 32px; line-height: 38px; }
+    .work-item__type{ font-size: 14px; line-height: 20px; }
+    .shortcut-link{ font-size: 14px; line-height: 20px; }
+  }
+  @media (min-width: 1920px){
+    .work-item__title{ font-size: 40px; line-height: 46px; }
+  }
+
+  /* .selected-item-details: column, 0.125rem gap, 65% width (40% ≤991px, 100% ≤767px) */
+  .work-item__details{
+    display:flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 65%;
+  }
+  /* .body-sm.selected-subtitle */
+  .work-item__client{
+    font-family: var(--type);
+    color: var(--work-secondary);
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    white-space: pre-wrap;
+  }
+  /* .body-sm.disabled */
+  .work-item__type{
+    font-family: var(--type);
+    color: var(--work-alt);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+  }
+
+  /* .shortcut-link.case-study-url-selected */
+  .shortcut-link{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    color: var(--work-ink);
+    font-family: var(--type);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+  }
+  .shortcut-link-text{ position: relative; }
+  .shortcut-link svg{ width:20px; height:20px; display:block; }
+  /* .shortcut-animation */
+  .shortcut-underline{
+    position: absolute;
+    left:0; top: 100%;
+    margin-top: 3px;
+    height: 1px;
+    width: 0%;
+    background: var(--work-ink);
+    transition: width .3s ease;
+  }
+  .shortcut-link:hover .shortcut-underline{ width:100%; }
+
+  /* .selected-visual: fixed height, 2.5:3 ratio (square ≤767px).
+     Placeholder artwork (no client photography supplied yet): a soft
+     duotone gradient + oversized index numeral, styled like a case-study
+     cover plate rather than a flat block. Swap the background-image for
+     a real project photo whenever one is available. */
+  .work-item__visual{
+    position: relative;
+    height: 60svh;
+    aspect-ratio: 2.5 / 3;
+    overflow: hidden;
+    background-color: var(--card, #2a2f33);
+    background-image:
+      linear-gradient(155deg, rgba(255,255,255,0.14), rgba(255,255,255,0) 45%),
+      linear-gradient(325deg, rgba(0,0,0,0.28), rgba(0,0,0,0) 55%);
+  }
+  .work-item__index{
+    position: absolute;
+    right: 6%;
+    bottom: 5%;
+    font-family: var(--type);
+    font-size: clamp(48px, 9vw, 140px);
+    line-height: 1;
+    font-weight: 400;
+    color: rgba(255,255,255,0.16);
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Same breakpoints as the reference's own compiled CSS (≤991px / ≤767px)
+     — the header/visual proportions scale down exactly like the source,
+     which is what keeps the card design (not a different mobile layout)
+     consistent on every device. */
+  @media (max-width: 991px){
+    .work-item__header{ min-width: 68vw; max-width: 68vw; }
+    .work-item__details{ width: 40%; }
+  }
+  @media (max-width: 767px){
+    .work-item__visual{ aspect-ratio: 1; height: 40svh; }
+    .work-item__details{ width: 100%; }
+  }
+
+  /* ============================================================
+     THEME SWITCH — toggles the work section between the reference's
+     light palette and a dark one, same tiny-pill mechanic
+     ============================================================ */
+  .work.is-dark{
+    --work-bg: #101112;
+    --work-ink: #f3f1ec;
+    --work-secondary: #b9b9b9;
+    --work-alt: #6f6f6f;
+  }
+  .theme-switch-wrap{
+    position: absolute;
+    top: clamp(20px, 3vw, 30px);
+    left: clamp(20px, 5vw, 64px);
+    z-index: 5;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+  }
+  .theme-switch-label{
+    font-family: var(--type);
+    font-size: 12px;
+    color: var(--work-alt);
+  }
+  .theme-switch{
+    border: 1px solid var(--work-alt);
+    cursor: pointer;
+    border-radius: 6px;
+    justify-content: space-between;
+    align-items: center;
+    width: 28px;
+    height: 16px;
+    padding: 0 3px;
+    display: flex;
+    transition: border-color .3s ease;
+  }
+  .theme-switch-dot{
+    background-color: var(--work-ink);
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    transform: translateX(0);
+    transition: transform .3s ease, background-color .3s ease;
+  }
+  .work.is-dark .theme-switch-dot{ transform: translateX(12px); }
+
+  /* ============================================================
+     LOGO — fixed top-left, large vertical mark
+     ============================================================ */
+  .site-logo{
+    position: fixed;
+    top: clamp(16px, 3vw, 26px);
+    left: clamp(20px, 5vw, 64px);
+    z-index: 650;
+    display: block;
+  }
+  .site-logo img{
+    height: clamp(90px, 11vw, 170px);
+    width: auto;
+    display: block;
+  }
+
+  /* ============================================================
+     TEXT-REVEAL ANIMATIONS — Soft Magnetic (hero title) and
+     Zipper Slide (services column), split into lines so the
+     top line(s) play first and the lower lines follow in sequence.
+     ============================================================ */
+  .tx-split span{ display:inline-block; opacity:0; }
+
+  .tx-soft.play span{
+    animation: txSoft 1.05s cubic-bezier(.22,1,.36,1) both;
+    animation-delay: calc(var(--line-delay, 0ms) + (var(--i) * 34ms));
+  }
+  @keyframes txSoft{
+    from{ opacity:0; transform: translate(var(--tx,0),var(--ty,0)) scale(1.2); filter: blur(6px); }
+    to{ opacity:1; transform:none; filter:none; }
+  }
+
+  .tx-zip.play span{
+    animation: txZip .7s cubic-bezier(.22,1,.36,1) both;
+    animation-delay: calc(var(--line-delay, 0ms) + (var(--i) * 26ms));
+  }
+  .tx-zip span:nth-child(odd){ --d: 1; }
+  .tx-zip span:nth-child(even){ --d: -1; }
+  @keyframes txZip{
+    from{ opacity:0; transform: translateX(calc(var(--d, 1) * 48px)); }
+    to{ opacity:1; transform:none; }
+  }
+
+  .hero-line{ display:block; }
+
+  /* ============================================================
+     DESKTOP OVERRIDES — hero scale/position, services alignment,
+     slideshow cards touching
+     ============================================================ */
+  @media (min-width: 1024px){
+    .hero__title{
+      font-size: calc(clamp(30px, 5.6vw, 80px) / 1.5);
+      max-width: none;
+    }
+    .hero__divider{
+      margin-bottom: clamp(10px, 1.5vw, 18px);
+    }
+    .hero__footer-row{
+      justify-content: flex-start;
+      width: 100vw;
+      position: relative;
+      left: calc(50% - 50vw);
+    }
+    .hero__footer-col--right{
+      margin-left: 50%;
+    }
+  }
+  @media (min-width: 992px){
+    .work-item{ align-items: stretch; }
+    .work-item__header{ padding-right: clamp(16px, 2vw, 32px); }
+    .work-item__visual{ width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGO — fixed top-left -->
+<a href="#top" class="site-logo" aria-label="Romaha Dev Agency">
+  <img src="https://i.postimg.cc/Px6D4Cqt/logo-RDA.png" alt="Romaha Dev Agency logo">
+</a>
+
+<!-- NAV — Circular Agency menu, top-right, submenus open downward -->
+<div id="mainMenu">
+
+  <div class="marquee-outer">
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <p class="marquee_text">We build fast, high-performing websites — Romaha Dev Agency — We build fast, high-performing websites — Romaha Dev Agency —</p>
+        <p class="marquee_text">We build fast, high-performing websites — Romaha Dev Agency — We build fast, high-performing websites — Romaha Dev Agency —</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-outer">
+    <nav class="mono-s">
+
+      <!-- WORK -->
+      <div id="menuwork" class="menu_item" style="width:53px;">
+        <div class="item-inner">
+          <div class="bg_first"></div>
+          <div class="bg_last"></div>
+          <a href="#work" class="menu_item_link">
+            <span>Work</span>
+            <span>Work</span>
+          </a>
+          <div class="js-menuitem-toggle" data-target="#menuwork"></div>
+        </div>
+        <div class="fix_space"></div>
+        <div class="submenu">
+          <div class="submenu_inner">
+            <div class="works-thumbs">
+              <a href="#work" style="background:#3a4750;"></a>
+              <a href="#work" style="background:#5b4636;"></a>
+              <a href="#work" style="background:#354a3f;"></a>
+            </div>
+            <div class="works-footer">
+              <a href="#work">
+                <svg class="arrow-icon" viewBox="0 0 10 10"><path d="M8.69911 5.30962L0 5.30962L1.01995e-05 4.2913L8.69912 4.29131L8.69911 5.30962Z"/><path d="M4.58795 0L9.38831 4.80036L4.5879 9.60076L3.86785 8.8807L7.94819 4.80036L3.86789 0.72006L4.58795 0Z"/></svg>
+                <span>See all work</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICES -->
+      <div id="menuservices" class="menu_item submenu-panel" style="width:68px;">
+        <div class="item-inner">
+          <div class="bg_first"></div>
+          <div class="bg_last"></div>
+          <a href="#work" class="menu_item_link">
+            <span>Services</span>
+            <span>Services</span>
+          </a>
+          <div class="js-menuitem-toggle" data-target="#menuservices"></div>
+        </div>
+        <div class="fix_space"></div>
+        <div class="submenu">
+          <div class="submenu_inner">
+            <div class="desc">
+              <p>We design and build fast, high-performing websites for brands that want to grow — from first line of code to launch.</p>
+            </div>
+            <div class="space-y-6">
+              <div class="grid-3">
+                <p class="label">Services</p>
+                <div class="list"><p>Web Development<br>UI/UX &amp; Design<br>SEO</p></div>
+              </div>
+              <div class="grid-3">
+                <p class="label">Based in</p>
+                <div class="list"><p>Tbilisi, Georgia</p></div>
+              </div>
+            </div>
+            <div class="mt-auto">
+              <div class="coords"><p>41°43'0"N, 44°47'0"E</p><p>©</p></div>
+              <div class="mobile-link">
+                <a href="mailto:hello@romahadev.agency">
+                  <svg class="arrow-icon" viewBox="0 0 10 10"><path d="M8.69911 5.30962L0 5.30962L1.01995e-05 4.2913L8.69912 4.29131L8.69911 5.30962Z"/><path d="M4.58795 0L9.38831 4.80036L4.5879 9.60076L3.86785 8.8807L7.94819 4.80036L3.86789 0.72006L4.58795 0Z"/></svg>
+                  <span>Get in touch</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div id="menuabout" class="menu_item submenu-panel" style="width:52px;">
+        <div class="item-inner">
+          <div class="bg_first"></div>
+          <div class="bg_last"></div>
+          <a href="#top" class="menu_item_link">
+            <span>About</span>
+            <span>About</span>
+          </a>
+          <div class="js-menuitem-toggle" data-target="#menuabout"></div>
+        </div>
+        <div class="fix_space"></div>
+        <div class="submenu">
+          <div class="submenu_inner">
+            <div class="desc">
+              <p>A small, focused dev studio. We keep teams lean and timelines short, so every project ships fast without cutting corners.</p>
+            </div>
+            <div class="space-y-6">
+              <div class="grid-3">
+                <p class="label">Studio</p>
+                <div class="list"><p>Independent<br>Remote-friendly<br>Tbilisi-based</p></div>
+              </div>
+            </div>
+            <div class="mt-auto">
+              <div class="coords"><p>41°43'0"N, 44°47'0"E</p><p>©</p></div>
+              <div class="mobile-link">
+                <a href="#top">
+                  <svg class="arrow-icon" viewBox="0 0 10 10"><path d="M8.69911 5.30962L0 5.30962L1.01995e-05 4.2913L8.69912 4.29131L8.69911 5.30962Z"/><path d="M4.58795 0L9.38831 4.80036L4.5879 9.60076L3.86785 8.8807L7.94819 4.80036L3.86789 0.72006L4.58795 0Z"/></svg>
+                  <span>Back to top</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div id="menucontact" class="menu_item submenu-panel" style="width:71px;">
+        <div class="item-inner">
+          <div class="bg_first"></div>
+          <div class="bg_last"></div>
+          <a href="mailto:hello@romahadev.agency" class="menu_item_link">
+            <span>Contact</span>
+            <span>Contact</span>
+          </a>
+          <div class="js-menuitem-toggle" data-target="#menucontact"></div>
+        </div>
+        <div class="fix_space"></div>
+        <div class="submenu">
+          <div class="submenu_inner">
+            <div class="space-y-6">
+              <div class="emails">
+                <p>General<br><a href="mailto:hello@romahadev.agency">hello@romahadev.agency</a></p>
+                <p>Instagram<br><a href="#" target="_blank">@romahadev</a></p>
+                <p>LinkedIn<br><a href="#" target="_blank">romaha-dev</a></p>
+              </div>
+            </div>
+            <div class="mt-auto">
+              <div class="coords"><p>41°43'0"N, 44°47'0"E</p><p>©</p></div>
+              <div class="mobile-link">
+                <a href="mailto:hello@romahadev.agency">
+                  <svg class="arrow-icon" viewBox="0 0 10 10"><path d="M8.69911 5.30962L0 5.30962L1.01995e-05 4.2913L8.69912 4.29131L8.69911 5.30962Z"/><path d="M4.58795 0L9.38831 4.80036L4.5879 9.60076L3.86785 8.8807L7.94819 4.80036L3.86789 0.72006L4.58795 0Z"/></svg>
+                  <span>Email us</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <video class="hero__video" id="heroVideo" src="https://raw.githubusercontent.com/Ramashery/Dev3/refs/heads/main/video/v11.mp4" autoplay muted loop playsinline preload="auto"></video>
+
+  <div class="hero__scrim"></div>
+
+  <div class="hero__content wrap" id="heroContent">
+    <h1 class="hero__title">
+      <span class="hero-line tx-split tx-soft" style="--line-delay:0ms;">Crafting high-performance</span>
+      <span class="hero-line tx-split tx-soft" style="--line-delay:850ms;">websites that drive growth</span>
+    </h1>
+    <div class="hero__divider"></div>
+
+    <div class="hero__footer-row">
+      <div class="hero__footer-col hero__footer-col--right">
+        <p class="hero__footer-label tx-split tx-zip" style="--line-delay:0ms;">Services</p>
+        <p class="hero__footer-text tx-split tx-zip" style="--line-delay:550ms;">Web Development</p>
+        <p class="hero__footer-text tx-split tx-zip" style="--line-delay:750ms;">UI/UX &amp; Design</p>
+        <p class="hero__footer-text tx-split tx-zip" style="--line-delay:950ms;">SEO</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- WORK — horizontal slideshow (placeholder content — swap later) -->
+<section class="work" id="work">
+  <div class="work__pin">
+
+    <div class="theme-switch-wrap">
+      <span class="theme-switch-label">Dark</span>
+      <div class="theme-switch" id="workThemeSwitch" role="button" aria-label="Toggle dark background" tabindex="0">
+        <div class="theme-switch-dot"></div>
+      </div>
+    </div>
+
+    <div class="work__track" id="workTrack">
+
+      <div class="work-item">
+        <div class="work-item__header">
+          <h2 class="work-item__title">A Bold New Identity for a Growing Brand</h2>
+          <div class="work-item__details">
+            <span class="work-item__client">Client Name</span>
+            <span class="work-item__type">Web Development</span>
+          </div>
+        </div>
+        <div class="work-item__visual" style="--card:#3a4750;"><span class="work-item__index">01</span></div>
+      </div>
+
+      <div class="work-item">
+        <div class="work-item__header">
+          <h2 class="work-item__title">Reimagining an E-commerce Experience</h2>
+          <div class="work-item__details">
+            <span class="work-item__client">Client Name</span>
+            <span class="work-item__type">UI/UX &amp; Design</span>
+          </div>
+        </div>
+        <div class="work-item__visual" style="--card:#5b4636;"><span class="work-item__index">02</span></div>
+      </div>
+
+      <div class="work-item">
+        <div class="work-item__header">
+          <h2 class="work-item__title">A Search-first Platform for Local Discovery</h2>
+          <div class="work-item__details">
+            <span class="work-item__client">Client Name</span>
+            <span class="work-item__type">SEO &amp; Strategy</span>
+          </div>
+        </div>
+        <div class="work-item__visual" style="--card:#354a3f;"><span class="work-item__index">03</span></div>
+      </div>
+
+      <div class="work-item">
+        <div class="work-item__header">
+          <h2 class="work-item__title">Booking Software Built for Speed</h2>
+          <div class="work-item__details">
+            <span class="work-item__client">Client Name</span>
+            <span class="work-item__type">Web Development</span>
+          </div>
+        </div>
+        <div class="work-item__visual" style="--card:#4a3a56;"><span class="work-item__index">04</span></div>
+      </div>
+
+      <div class="work-item">
+        <div class="work-item__header">
+          <h2 class="work-item__title">A Membership Platform Built to Retain</h2>
+          <div class="work-item__details">
+            <span class="work-item__client">Client Name</span>
+            <span class="work-item__type">Product Design</span>
+          </div>
+        </div>
+        <div class="work-item__visual" style="--card:#2d4a4a;"><span class="work-item__index">05</span></div>
+      </div>
+
+      <div class="work-item">
+        <div class="work-item__header">
+          <h2 class="work-item__title">From Idea to Launch in Six Weeks</h2>
+          <div class="work-item__details">
+            <span class="work-item__client">Client Name</span>
+            <span class="work-item__type">Web Development &amp; SEO</span>
+          </div>
+        </div>
+        <div class="work-item__visual" style="--card:#5c3a3a;"><span class="work-item__index">06</span></div>
+      </div>
+
+    </div>
+
+    <div class="work__progress"><div class="work__progress-bar" id="workProgressBar"></div></div>
+
+  </div>
+</section>
+
+<script>
+  // ============================================================
+  // Circular Agency menu — click/tap toggle (desktop also gets hover via CSS)
+  // ============================================================
+  document.querySelectorAll('.js-menuitem-toggle').forEach(function(toggle){
+    toggle.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var target = document.querySelector(toggle.getAttribute('data-target'));
+      var isOpen = target.classList.contains('menu--open');
+      document.querySelectorAll('.menu_item').forEach(function(m){
+        m.classList.remove('menu--open');
+        m.classList.remove('clicked');
+      });
+      if (!isOpen){
+        target.classList.add('menu--open');
+      }
+    });
+  });
+
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('#mainMenu')){
+      document.querySelectorAll('.menu_item').forEach(function(m){
+        m.classList.remove('menu--open');
+        m.classList.remove('clicked');
+      });
+    }
+  });
+
+  // ============================================================
+  // Theme switch — toggles the work section's light/dark palette
+  // ============================================================
+  (function(){
+    var work = document.getElementById('work');
+    var toggleEl = document.getElementById('workThemeSwitch');
+
+    function toggleTheme(){
+      work.classList.toggle('is-dark');
+    }
+    toggleEl.addEventListener('click', toggleTheme);
+    toggleEl.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleTheme(); }
+    });
+  })();
+
+  // ============================================================
+  // Text-reveal animations: Soft Magnetic (hero title lines) and
+  // Zipper Slide (services column lines) — split into letters,
+  // each line carries its own --line-delay so top lines play
+  // first and lower lines follow in sequence.
+  // ============================================================
+  var playTextLines = (function(){
+    function splitLetters(el){
+      var text = el.textContent;
+      el.innerHTML = Array.prototype.map.call(text, function(ch, i){
+        return ch === ' '
+          ? '<span style="--i:' + i + '">&nbsp;</span>'
+          : '<span style="--i:' + i + '">' + ch + '</span>';
+      }).join('');
+    }
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+    function prepareSoft(el){
+      el.querySelectorAll('span').forEach(function(span){
+        var tx = rand(-60, 60), ty = rand(-50, 50);
+        span.style.setProperty('--tx', tx.toFixed(0) + 'px');
+        span.style.setProperty('--ty', ty.toFixed(0) + 'px');
+      });
+    }
+    var lines = document.querySelectorAll('.tx-split');
+    lines.forEach(splitLetters);
+    document.querySelectorAll('.tx-soft').forEach(prepareSoft);
+    return function(){
+      lines.forEach(function(el){ el.classList.add('play'); });
+    };
+  })();
+
+  // ============================================================
+  // Hero: fade content in on load, subtle parallax/fade on scroll
+  // ============================================================
+  (function(){
+    var hero = document.getElementById('top');
+    var heroContent = document.getElementById('heroContent');
+    var video = document.getElementById('heroVideo');
+
+    video.addEventListener('loadeddata', function(){
+      heroContent.classList.add('is-visible');
+      playTextLines();
+    });
+    // Fallback in case loadeddata already fired or is slow
+    setTimeout(function(){
+      heroContent.classList.add('is-visible');
+      playTextLines();
+    }, 600);
+
+    function onScroll(){
+      var h = hero.offsetHeight;
+      var y = Math.min(window.scrollY, h);
+      var progress = y / h; // 0 -> 1 across the hero's own height
+
+      hero.style.setProperty('--hero-scale', (1 + progress * 0.08).toFixed(3));
+      hero.style.setProperty('--hero-fade', Math.max(0, 1 - progress * 1.6).toFixed(3));
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // ============================================================
+  // Horizontal slideshow: pin the viewport, translate the track
+  // sideways in lockstep with the page's vertical scroll position
+  // ============================================================
+  (function(){
+    var section = document.getElementById('work');
+    var track = document.getElementById('workTrack');
+    var progressBar = document.getElementById('workProgressBar');
+    var scrollLength = 0; // extra px of vertical scroll the section needs
+
+    function measure(){
+      var travel = track.scrollWidth - window.innerWidth; // total horizontal distance to cover
+      scrollLength = Math.max(travel, 0);
+      section.style.height = (window.innerHeight + scrollLength) + 'px';
+    }
+
+    function onScroll(){
+      var rect = section.getBoundingClientRect();
+      var scrolled = -rect.top; // how far we've scrolled into the pinned section
+      var progress = scrollLength > 0 ? Math.min(Math.max(scrolled / scrollLength, 0), 1) : 0;
+
+      track.style.transform = 'translateX(' + (-progress * scrollLength) + 'px)';
+      progressBar.style.width = (progress * 100).toFixed(2) + '%';
+    }
+
+    window.addEventListener('resize', function(){ measure(); onScroll(); });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    measure();
+    onScroll();
+  })();
+</script>
+
+</body>
+</html>
